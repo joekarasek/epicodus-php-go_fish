@@ -1,23 +1,27 @@
 <?php
     class Card()
     {
-        private $suite;
+        private $suit;
         private $type;
 
-        function __construct($suite, $type)
+        function __construct($suit, $type)
         {
-            $this->suite = $suite;
+            $this->suit = $suit;
             $this->type = $type;
         }
 
-        function getSuite()
+        function getSuit()
         {
-            return $this->suite;
+            return $this->suit;
         }
 
         function getType()
         {
             return $this->type;
+        }
+        function getName()
+        {
+            return $this->type . " of " . $this->suit;
         }
 
     }
