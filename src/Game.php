@@ -5,9 +5,9 @@ class Game {
     private $players;
     private $active_player_index;
 
-    function __construct($pool, $players)
+    function __construct($players)
     {
-        $this->pool = $pool;
+        populatePool();
         $this->players = $players;
         $this->active_player_index = 0;
     }
@@ -23,6 +23,7 @@ class Game {
             return 'Game over';
         }
     }
+
     function updateActivePlayer()
     {
         if($this->active_player_index < count($this->players)-1){
@@ -31,13 +32,25 @@ class Game {
             $this->active_player_index = 0;
         }
     }
-    function deal()
+
+    function goFish()
     {
         $card_index = array_rand($this->pool);
         $card = $this->pool[$card_index];
         array_splice($this->pool, $card_index, 1);
         return $card;
     }
+
+    function deal()
+    {
+        foreach ($players as $player) {
+            for($i = 0; $i < 7; $i++){
+                $card = $this->goFish();
+                array_push($player->hand, $card);
+            }
+        }
+    }
+
     function populatePool()
     {
         $this->pool = array();
@@ -48,6 +61,15 @@ class Game {
                 array_push($this->pool, new Card($suit, $type));
             }
         }
+    }
+
+    function save()
+    {
+        $_SESSION['game']= new Game(array(
+			new Player('Joe', true),
+			new Player('computer')
+		));
+        $_SESSION['game']->deal();
     }
 }
  ?>

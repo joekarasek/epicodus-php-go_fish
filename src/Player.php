@@ -31,7 +31,6 @@
         }
         function goFish()
         {
-
             array_push($this->hand, Game::deal());
         }
         function numberOfBooks()
@@ -45,7 +44,7 @@
         {
             return false;
         }
-        function giveCard($card)
+        function surrender($card)
         {
             return false;
         }
