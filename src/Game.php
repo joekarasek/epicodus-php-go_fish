@@ -7,9 +7,17 @@ class Game {
 
     function __construct($players)
     {
-        populatePool();
+        $this->pool = array();
         $this->players = $players;
         $this->active_player_index = 0;
+
+        $card_types = array('Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King');
+        $card_suits = array('Hearts','Spades','Clubs','Diamonds');
+        foreach($card_suits as $suit){
+            foreach($card_types as $type){
+                array_push($this->pool, new Card($suit, $type));
+            }
+        }
     }
 
     function checkGameState()
@@ -36,32 +44,32 @@ class Game {
     function goFish()
     {
         $card_index = array_rand($this->pool);
-        $card = $this->pool[$card_index];
-        array_splice($this->pool, $card_index, 1);
+        $card = array_splice($this->pool, $card_index, 1)[0];
         return $card;
     }
 
     function deal()
     {
-        foreach ($players as $player) {
+        foreach ($this->players as $player) {
+            $hand = $player->getHand();
             for($i = 0; $i < 7; $i++){
                 $card = $this->goFish();
-                array_push($player->hand, $card);
-            }
+                $player->pushHand($card);
+            } var_dump($player);
         }
     }
 
-    function populatePool()
-    {
-        $this->pool = array();
-        $card_types = array('Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King');
-        $card_suits = array('Hearts','Spades','Clubs','Diamonds');
-        foreach($card_suits as $suit){
-            foreach($card_types as $type){
-                array_push($this->pool, new Card($suit, $type));
-            }
-        }
-    }
+    // function populatePool()
+    // {
+    //     $this->pool = array();
+    //     $card_types = array('Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King');
+    //     $card_suits = array('Hearts','Spades','Clubs','Diamonds');
+    //     foreach($card_suits as $suit){
+    //         foreach($card_types as $type){
+    //             array_push($this->pool, new Card($suit, $type));
+    //         }
+    //     }
+    // }
 
     function save()
     {
@@ -70,6 +78,11 @@ class Game {
 			new Player('computer')
 		));
         $_SESSION['game']->deal();
+    }
+
+    function getPlayers()
+    {
+        return $this->players;
     }
 }
  ?>

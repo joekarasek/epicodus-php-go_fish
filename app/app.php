@@ -18,11 +18,13 @@
 
 	$app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__.'/../views'));
 
-
-
-	$app->get('/new_game', function(){
-		$_SESSION['game']->save();
+	$app->get("/", function() use ($app){
+		// print_r($_SESSION['game']);
 	});
+
+	// $app->get('/new_game', function(){
+	// 	$_SESSION['game']->save();
+	// });
 
 
 	return $app;

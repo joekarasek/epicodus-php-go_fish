@@ -1,5 +1,5 @@
 <?php
-    class Card()
+    class Card
     {
         private $suit;
         private $type;

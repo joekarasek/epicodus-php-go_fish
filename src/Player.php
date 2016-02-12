@@ -48,5 +48,10 @@
         {
             return false;
         }
+
+        function pushHand($newCard)
+        {
+            array_push($this->hand, $newCard);
+        }
     }
  ?>
